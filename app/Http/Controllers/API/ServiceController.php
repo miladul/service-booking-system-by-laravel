@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
 use App\Services\ServiceService;
 use Illuminate\Http\Request;
@@ -21,32 +22,22 @@ class ServiceController extends Controller
         return response()->json($this->serviceService->getAllAvailable());
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
         $this->authorizeAdmin();
 
-        $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'status' => 'boolean'
-        ]);
+        $validated = $request->validated();
 
         $service = $this->serviceService->create($validated);
 
         return response()->json($service, 201);
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
         $this->authorizeAdmin();
 
-        $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'status' => 'boolean'
-        ]);
+        $validated = $request->validated();
 
         $updated = $this->serviceService->update($service, $validated);
 

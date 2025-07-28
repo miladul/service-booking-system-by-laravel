@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookingRequest;
 use App\Services\BookingService;
 use Illuminate\Http\Request;
 
@@ -15,12 +16,9 @@ class BookingController extends Controller
         $this->bookingService = $bookingService;
     }
 
-    public function store(Request $request)
+    public function store(BookingRequest $request)
     {
-        $validated = $request->validate([
-            'service_id' => 'required|exists:services,id',
-            'booking_date' => 'required|date|after_or_equal:today',
-        ]);
+        $validated = $request->validated();
 
         $data = array_merge($validated, ['user_id' => auth()->id(), 'status' => 'pending']);
 
