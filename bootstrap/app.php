@@ -20,7 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
 
         $exceptions->renderable(function (Throwable $exception, Request $request) {
-            //NotFoundHttpException
 
             if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
                 return response()->json([
