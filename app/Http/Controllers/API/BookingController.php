@@ -4,51 +4,76 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingRequest;
+use App\Http\Resources\BookingResource;
 use App\Services\BookingService;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class BookingController extends Controller
 {
-    protected $bookingService;
+    protected BookingService $bookingService;
 
     public function __construct(BookingService $bookingService)
     {
         $this->bookingService = $bookingService;
     }
 
-    public function store(BookingRequest $request)
+    public function store(BookingRequest $request): JsonResponse
     {
         $validated = $request->validated();
 
-        $data = array_merge($validated, ['user_id' => auth()->id(), 'status' => 'pending']);
+        $data = array_merge($validated, [
+            'user_id' => auth()->id(),
+            'status' => 'pending',
+        ]);
 
         $booking = $this->bookingService->create($data);
 
-        return response()->json($booking, 201);
+        return $this->successResponse(
+            new BookingResource($booking),
+            'Booking created successfully',
+            201
+        );
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         $bookings = $this->bookingService->getUserBookings(auth()->user());
 
-        return response()->json($bookings);
+        return $this->successResponse(
+            BookingResource::collection($bookings),
+            'Your bookings'
+        );
     }
 
-    public function allBookings()
+    public function allBookings(): JsonResponse
     {
-        $this->authorizeAdmin();
+        if (!auth()->user()->is_admin) {
+            return $this->errorResponse('Only admin allowed', 403);
+        }
 
         $bookings = $this->bookingService->getAllBookings();
 
-        return response()->json($bookings);
+        return $this->successResponse(
+            BookingResource::collection($bookings),
+            'All bookings'
+        );
     }
 
-    protected function authorizeAdmin()
+    protected function successResponse(mixed $data, string $message = '', int $status = 200): JsonResponse
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Only admin allowed');
-        }
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'data' => $data,
+        ], $status);
+    }
+
+    protected function errorResponse(string $message = 'Something went wrong', int $status = 400, mixed $errors = null): JsonResponse
+    {
+        return response()->json([
+            'success' => false,
+            'message' => $message,
+            'errors' => $errors,
+        ], $status);
     }
 }
-
-
