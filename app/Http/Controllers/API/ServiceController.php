@@ -4,47 +4,61 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Services\ServiceService;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    protected $serviceService;
+
+    public function __construct(ServiceService $serviceService)
+    {
+        $this->serviceService = $serviceService;
+    }
+
     public function index()
     {
-        return Service::where('status', true)->get();
+        return response()->json($this->serviceService->getAllAvailable());
     }
 
     public function store(Request $request)
     {
         $this->authorizeAdmin();
 
-        $data = $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
-            'price' => 'required|numeric',
             'description' => 'nullable|string',
+            'price' => 'required|numeric',
             'status' => 'boolean'
         ]);
 
-        $service = Service::create($data);
-        return response()->json($service);
+        $service = $this->serviceService->create($validated);
+
+        return response()->json($service, 201);
     }
 
     public function update(Request $request, Service $service)
     {
         $this->authorizeAdmin();
 
-        $data = $request->validate([
-            'name' => 'required', 'price' => 'required|numeric',
-            'description' => 'nullable|string', 'status' => 'boolean'
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'status' => 'boolean'
         ]);
 
-        $service->update($data);
-        return response()->json($service);
+        $updated = $this->serviceService->update($service, $validated);
+
+        return response()->json($updated);
     }
 
     public function destroy(Service $service)
     {
         $this->authorizeAdmin();
-        $service->delete();
+
+        $this->serviceService->delete($service);
+
         return response()->json(['message' => 'Deleted']);
     }
 
@@ -55,4 +69,5 @@ class ServiceController extends Controller
         }
     }
 }
+
 
