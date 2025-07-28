@@ -1,0 +1,476 @@
+{
+	"info": {
+		"_postman_id": "910da93e-5edd-4537-80c0-a190c602c4bd",
+		"name": "service-booking-system-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15141375"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Miladul Islam\",\n    \"email\": \"miladul@gmail.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"imiladul@gmail.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adminLogin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "List available services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book a service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"service_id\": \"2\",\r\n    \"booking_date\": \"2025-07-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List logged-in user's bookings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"service_id\": \"5\",\r\n    \"booking_date\": \"2025-07-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "Create a new service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"UI/UX Design\",\r\n    \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\r\n    \"price\": \"300\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Web Development updated\",\r\n    \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\r\n    \"price\": \"200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/services/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete service",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/services/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"services",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "– List all bookings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTk4NTFkYi0zNDk5LTczYjAtOWVmMS03OWEzOTdhMjQxNjciLCJqdGkiOiI3MDIwMTliMmY1MWFkZjQzNmVhMjM0YWI2ZGUyMTJiZWE5NTY2ZmMzNjgwMGRhNzhiYWIyMDY0NjBjOWUzNjYzYzAxM2U1M2JhY2U2MzFjYSIsImlhdCI6MTc1MzcyNTQ5OC45MDE2MDgsIm5iZiI6MTc1MzcyNTQ5OC45MDE2MTQsImV4cCI6MTc4NTI2MTQ5OC44OTE2NTcsInN1YiI6IjIiLCJzY29wZXMiOltdfQ.EIiZrhbN02wUAtUtfYqduEaxOxQRgSQoe50EdErWdzoaC1q01vO7COT0FDB8Gm42sxZLRxctHiamFZa2n72NoFSmsMddw8C4OOzCafGXZ4S63YZ708O5eTPc4VOXXs2wOnZMFlQG7safdL-FvmiXdDCWdUzosHEzG4lsaDxZFWLr32cOPSy-zgrP4r-G0zqy1aPKbjFgdYIc6VRCNjg-LT3xIyfVRfGmPsLS8SEHhkQNySA_7LnPEeEwYWu7QvukyDybkPtxxlObOEwls2nQ9NrNJm9UIH2lIVZVUM3J1XsB-2_O2ayaNu-KCZ1QpyVobiowFi0PUaqQZdnS0Uef7E8d3eiflYH3peoggIZnPl19eJGpWMGDYPVzqELd9DlqjrQEwg7dJOMnCLHCWREWg9WoXvP66tZ0JWJgH271GFz0d6xRWY-T230dfP3sN0G4lwaFRW2pwxmH8IBmMowyq6JG7S5xl3r5nWU7yHvpSDu5ECAOkwMAW8Epe9JB_SJn7Gse-rLtQeoB-h9PKD_Oewb8u7sednXgqO2QPAaPE2Wr0JCsc3J5rdAxjwcdC_p4lhC6_jG2Venx5ylGwju56u37RJE0c17ZoWclsREUr3hFgkYp2K_Hkt3gSFluGxQsf2hqLheuKkIm8CYQehYSkXOyg4NPHCWf8VlUZDAboxw",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTk4NTFkYi0zNDk5LTczYjAtOWVmMS03OWEzOTdhMjQxNjciLCJqdGkiOiJiODNjN2VhMGRlMzU4OTdlYzU4Y2NlMzAxNzUyYTgyNjk0NmIyZDAwYmYxOGE4OTRjMjlmNDczNTc2NTNiMTVjOWU4ZmU3Njc4M2EzZDEyMyIsImlhdCI6MTc1MzcyMDM1OS44NjY5NDUsIm5iZiI6MTc1MzcyMDM1OS44NjY5NTEsImV4cCI6MTc4NTI1NjM1OS44NjEwNTQsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.VJ4l8wSuwD_58gKqkGumZJ16CXVvptOwWMjDeLyr-TMXoXBvR8DfpATY65Who18kd2EPX3BNWZO-KVnJswuWMUNZUdTWHbVo1FNB5mx-GDdDcU-5BEwr3hWJ6yzrLfjfSxRbwlg2YBt66Ju82Fgrx8PUfSlXso3Q6jqaqij-CaNU7hONNWjb7mu8xZiHt7jqzVUc64i6fSfN7hsjvaaq_rrc5niikBjzftFEcC7Tv11AXzKJDeybUSF6G_6i3xfXtrmhyGak7OAXrNX_xSivWjKZS5hwKHJKcfWECpm6MiPWardqZOY-87WnPtW23jfv19ZPpTXkwfnIniZBqWRndVmcY0t_SY1M0yr7HlhMs7vzE0N-xJJapCGtxWhDvRG59VdRHS3740fWOlD57aOCKwCzw_UQMdwyGBBr213fYKAuc2CJK45X2iv5q4fvDFP0eGzWCI-ItBm2cp3sC1R-RG2cJBipMw1TvII7lU7qbED_X9dPiB0OiMiwqg4mrLLwFfRu3ij7qullK76qTirEqGSMKAK4UHX5MpmDWxxQB6kpr5tauBfqzsLNRG9przpWgJ8tc3L-wKTU5fgGa9yuIvEXgmn-a1wy3joKwhx6HvL1trYNH2PxBPyvj7sDR39g1jzwD1N5OfAcJBFRPZkvH8PDDVUHS72vFAJe1I6qKVs",
+			"type": "string"
+		}
+	]
+}
