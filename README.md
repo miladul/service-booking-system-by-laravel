@@ -31,7 +31,7 @@ cd service-booking-system-by-laravel
 composer install
 cp .env.example .env
 php artisan key:generate
-php artisan migrate
+php artisan migrate --seed
 php artisan passport:client --personal
 php artisan serve
 ```
