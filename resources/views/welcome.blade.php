@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #121212;
+            background: linear-gradient(135deg, #121212, #1c1c1c);
             color: #ffffff;
             min-height: 100vh;
             display: flex;
@@ -16,30 +16,52 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .card {
-            background-color: #1f1f1f;
+            background: linear-gradient(160deg, #1f1f1f, #2a2a2a);
             border-radius: 20px;
             border: none;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
         }
         .card-header {
             background-color: transparent;
             border-bottom: 1px solid #333;
         }
+        .card-header h3 {
+            font-weight: 600;
+            color: #0d6efd;
+        }
         .card-body h1 {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
+            font-weight: 700;
+        }
+        .card-body p.lead {
+            color: #bbb;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #0d6efd, #5a8dee);
+            border: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #0a58ca, #3f6fd9);
+        }
+        code {
+            background-color: #2d2d2d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #f1f1f1;
         }
         .footer {
             text-align: center;
             margin-top: 20px;
             color: #aaa;
             font-size: 0.9rem;
-        }
-        a {
-            color: #0d6efd;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -55,12 +77,14 @@
                 <div class="card-body">
                     <h1 class="fw-bold">Service Booking System API</h1>
                     <p class="mt-3 lead">This is the backend API service for managing and booking services.</p>
-                    <hr>
+                    <hr class="border-secondary">
                     <p class="mb-0">To use this API, please authenticate using your credentials and access the endpoints via <code>/api/*</code> routes.</p>
-                    <p class="mt-3"><a href="https://miladul-bd.postman.co/workspace/My-Workspace~9ebeb10d-5cc1-40b8-8636-de4469f2a7e2/collection/15141375-910da93e-5edd-4537-80c0-a190c602c4bd?action=share&source=copy-link&creator=15141375" target="_blank">📄 View API Documentation</a></p>
+                    <a href="{{ asset('open-api/postman_collection.json') }}" download class="btn btn-primary mt-4">
+                        📥 Download API Documentation
+                    </a>
                 </div>
                 <div class="footer mt-3">
-                    &copy; {{ date('Y') }} Service Booking System. All rights reserved.
+                    &copy; <script>document.write(new Date().getFullYear());</script> Service Booking System. All rights reserved.
                 </div>
             </div>
         </div>
