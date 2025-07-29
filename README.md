@@ -30,23 +30,6 @@ git clone https://github.com/miladul/service-booking-system-by-laravel.git
 cd service-booking-system-by-laravel
 composer install
 cp .env.example .env
-php artisan key:generate
-php artisan migrate --seed
-
-php artisan passport:install
--- Would you like to run all pending database migrations? (yes/no) [NO]
--- reply with [no]
-
-# for remove duplicate migration files that created after passport install
-git clean -f
-
-php artisan passport:client --personal 
--- continute with default
--- enter
--- enter
-
-
-php artisan serve
 ```
 
 Update `.env` with DB credentials.
@@ -61,7 +44,24 @@ DB_PASSWORD=db_password
 
 ```
 
----
+```
+php artisan key:generate
+php artisan migrate --seed
+php artisan passport:install
+-- Would you like to run all pending database migrations? (yes/no) [NO]
+-- reply with [no]
+
+# for remove duplicate migration files that created after passport install
+git clean -f
+
+php artisan passport:client --personal
+-- continute with default
+-- enter
+-- enter
+
+php artisan serve
+
+```
 
 ## 📬 API Endpoints
 
