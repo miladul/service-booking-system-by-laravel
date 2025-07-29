@@ -34,14 +34,16 @@ php artisan key:generate
 php artisan migrate --seed
 
 php artisan passport:install
-Would you like to run all pending database migrations? (yes/no) [NO]
+-- Would you like to run all pending database migrations? (yes/no) [NO]
 -- reply with [no]
 
+# for remove duplicate migration files that created after passport install
+git clean -f
 
 php artisan passport:client --personal 
 -- continute with default
--> enter
--> enter
+-- enter
+-- enter
 
 
 php artisan serve
