@@ -32,7 +32,18 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
+
 php artisan passport:install
+Would you like to run all pending database migrations? (yes/no) [NO]
+-- reply with [no]
+
+
+php artisan passport:client --personal 
+-- continute with default
+-> enter
+-> enter
+
+
 php artisan serve
 ```
 
