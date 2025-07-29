@@ -155,6 +155,3 @@ Minimal `welcome.blade.php` using **Bootstrap 5 (dark theme)** with a nice messa
 
 ---
 
-## 📄 License
-
-MIT License © 2025 [Your Name]
