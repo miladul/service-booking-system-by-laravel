@@ -32,7 +32,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
-php artisan passport:client --personal
+php artisan passport:install
 php artisan serve
 ```
 
